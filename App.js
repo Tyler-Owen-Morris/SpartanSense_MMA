@@ -19,6 +19,22 @@ function writeCsv(jsonData, alg) {
   });
 }
 
+function writeJson(jsonData, alg) {
+  var now = Date.now();
+  var entry = {};
+  entry[now] = jsonData;
+  fs.appendFile(
+    "./data/" + alg + ".json",
+    JSON.stringify(entry) + `\n`,
+    (err) => {
+      if (err) {
+        throw err;
+      }
+      console.log("SAVED!");
+    }
+  );
+}
+
 async function getData(algo) {
   let url = `https://api2.nicehash.com/main/api/v2/hashpower/orders/summaries?algorithm=${algo}`;
 
@@ -30,10 +46,13 @@ async function getData(algo) {
     }
 
     if (res.statusCode == 200) {
+      writeJson(body, algo);
+      /*
       body.datetime = Date.now();
       let flat_json = flatten(body);
       console.log("200", flat_json);
       writeCsv(flat_json, algo);
+      */
     } else {
       console.log("Not 200 code!", res);
     }
@@ -43,5 +62,12 @@ async function getData(algo) {
 let algos = ["SCRYPT", "SHA256", "KAWPOW"];
 
 algos.forEach(async (alg) => {
-  let answer = await getData(alg);
+  //getData(alg);
+});
+
+algos.forEach((alg) => {
+  let rawdata = fs.readFileSync("./data/" + alg + ".json");
+  console.log(alg, "rawdata", rawdata);
+  let result = JSON.parse(rawdata);
+  console.log(alg, "result:", result);
 });
