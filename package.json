@@ -4,7 +4,8 @@
   "description": "crypto data mining node project",
   "main": "App.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node App.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/flicknewb/SpartanSense_MMA/issues"
   },
-  "homepage": "https://github.com/flicknewb/SpartanSense_MMA#readme"
+  "homepage": "https://github.com/flicknewb/SpartanSense_MMA#readme",
+  "dependencies": {
+    "flat": "^5.0.2",
+    "json-2-csv": "^3.14.4",
+    "request": "^2.88.2"
+  }
 }
